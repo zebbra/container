@@ -1,0 +1,38 @@
+# Log everything to stdout
+maillog_file = /dev/stdout
+
+# Disable BC
+compatibility_level = 3.6
+
+# TLS
+# see also https://ssl-config.mozilla.org/#server=postfix&version=3.4.8&config=intermediate&openssl=1.1.1k&guideline=5.7
+smtpd_tls_security_level = may
+smtpd_tls_auth_only = yes
+smtpd_tls_cert_file = /mnt/tls/tls.crt
+smtpd_tls_key_file = /mnt/tls/tls.key
+smtpd_tls_protocols = >=TLSv1.2
+smtpd_tls_mandatory_protocols = >=TLSv1.2
+smtpd_tls_mandatory_ciphers = medium
+smtpd_tls_dh1024_param_file = /etc/postfix/dhparams.pem
+tls_medium_cipherlist = ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-CHACHA20-POLY1305
+tls_preempt_cipherlist = no
+
+# Disable local alias lookups
+alias_maps =
+alias_database =
+
+# Forward errors to specific address
+notify_classes = resource, software, 2bounce
+
+# Relay auth
+smtp_sasl_auth_enable = yes
+smtp_sasl_password_maps = texthash:/etc/postfix/relay_auth
+smtp_sasl_security_options =
+
+# Postfix email firewall/gateway
+# https://www.postfix.org/STANDARD_CONFIGURATION_README.html
+mydestination =
+local_recipient_maps =
+local_transport = error:local mail delivery is disabled
+smtpd_relay_restrictions = permit_mynetworks, reject_unauth_destination
+virtual_alias_maps = texthash:/etc/postfix/virtual
