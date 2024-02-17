@@ -10,7 +10,7 @@ on:
     - cron: '0 9 * * 1'
 
 env:
-  GHCR_IMAGE: ghcr.io/zebbra/postfix-reley
+  GHCR_IMAGE: ghcr.io/zebbra/postfix-relay
   CONTAINER_PLATFORMS: "linux/amd64,linux/arm64"
   TAG: latest
 
