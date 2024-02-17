@@ -3,7 +3,7 @@ name: logstash-output-loki
 on:
   push:
     paths:
-      - images/logstash-output-loki
+      - images/logstash-output-loki/*
       - .github/workflows/logstash-output-loki.yml
   workflow_dispatch:
 
@@ -11,7 +11,7 @@ env:
   GHCR_IMAGE: ghcr.io/zebbra/logstash
   CONTAINER_PLATFORMS: "linux/amd64,linux/arm64"
   UPSTREAM_VERSION: 8.12.1
-  TAG: 8.12.1-loki
+  TAG: 8.12.1-loki.r1
 
 jobs:
   build:
