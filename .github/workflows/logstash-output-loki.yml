@@ -10,8 +10,8 @@ on:
 env:
   GHCR_IMAGE: ghcr.io/zebbra/logstash
   CONTAINER_PLATFORMS: "linux/amd64,linux/arm64"
-  UPSTREAM_VERSION: 8.12.1
-  TAG: 8.12.1-loki.r1
+  UPSTREAM_VERSION: 8.12.1-debian-11-r19
+  TAG: 8.12.1-bitnami-loki
 
 jobs:
   build:
