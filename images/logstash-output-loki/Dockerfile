@@ -19,6 +19,11 @@ RUN curl -Lf \
     -o ${POSTGRES_JDBC_DRIVER_LIBRARY} \
     https://jdbc.postgresql.org/download/postgresql-${POSTGRES_JDBC_DRIVER_VERSION}.jar
 
+# Fix permissions
+RUN \
+    chown logstash:root /opt/bitnami/logstash/data && \
+    chmod 775 /opt/bitnami/logstash/data
+
 # Add loki output plugin
 USER logstash
 RUN logstash-plugin install logstash-output-loki
