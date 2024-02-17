@@ -1,4 +1,6 @@
 FROM alpine:3
+LABEL org.opencontainers.image.source = "https://github.com/zebbra/container"
+LABEL org.opencontainers.image.description="postfix relay host"
 
 RUN apk --no-cache add \
     bash \
