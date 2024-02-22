@@ -3,7 +3,7 @@ name: postfix-relay
 on:
   push:
     paths:
-      - images/postfix-relay/*
+      - images/postfix-relay/**
       - .github/workflows/postfix-relay.yml
   workflow_dispatch:
   schedule:
@@ -36,11 +36,19 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Inject slug/short variables
+        uses: rlespinasse/github-slug-action@v4
+
+      - name: Generate image tag
+        id: tag
+        run: echo "tag=$(date +%Y%m%d%H%M)-${{ env.GITHUB_SHA_SHORT }}" >> "$GITHUB_OUTPUT"
+
       - name: Build
         run: >
           docker buildx build --pull --push
           --build-arg VERSION=${{ env.UPSTREAM_VERSION }}
           -t ${{ env.GHCR_IMAGE }}:${{ env.TAG }}
+          -t ${{ env.GHCR_IMAGE }}:${{ steps.tag.outputs.tag }}
           --platform ${{ env.CONTAINER_PLATFORMS }}
           .
         working-directory: images/postfix-relay
