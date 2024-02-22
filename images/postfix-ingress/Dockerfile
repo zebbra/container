@@ -1,4 +1,6 @@
 FROM alpine:3
+LABEL org.opencontainers.image.source = "https://github.com/zebbra/container"
+LABEL org.opencontainers.image.description="postfix ingress"
 
 RUN apk --no-cache add \
     bash \
@@ -13,7 +15,7 @@ COPY main.cf /etc/postfix/main.cf
 COPY master.cf /etc/postfix/master.cf
 
 # download Mozilla DHE params
-RUN curl -s -o /etc/postfix/dhparams.pem https://ssl-config.mozilla.org/ffdhe2048.txt
+RUN curl -Lsf -o /etc/postfix/dhparams.pem https://ssl-config.mozilla.org/ffdhe2048.txt
 
 COPY postfix.sh /usr/bin/postfix.sh
 RUN chmod 550 /usr/bin/postfix.sh
