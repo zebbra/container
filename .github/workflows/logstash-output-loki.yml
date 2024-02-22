@@ -3,7 +3,7 @@ name: logstash-output-loki
 on:
   push:
     paths:
-      - images/logstash-output-loki/*
+      - images/logstash-output-loki/**
       - .github/workflows/logstash-output-loki.yml
   workflow_dispatch:
 
